@@ -1,18 +1,13 @@
-import express from 'express'
-import dotenv from 'dotenv'
-import { connectDB } from '../config/db.js';
+import 'dotenv/config'
+import { createServer } from 'http'
+import app from './app.js' 
+import mongoose from 'mongoose'
 
-dotenv.config()
 const PORT = process.env.PORT
 
-const app = express();
+async function boot(){
+  await mongoose.connect(process.env.MONGO_URI);
+  createServer(app).listen(PORT, () => console.log(`API on : ${PORT}`))
+}
 
-//json parser middleware 
-app.use(express());
-
-
-connectDB().then(() => {
-    app.listen(PORT, () => {
-        console.log(`Server is running on port: ${PORT}`);
-      });
-}) 
+boot();
