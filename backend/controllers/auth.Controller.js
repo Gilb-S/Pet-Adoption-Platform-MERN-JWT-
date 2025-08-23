@@ -74,7 +74,8 @@ export const refresh = async (req, res) => {
         const access = signAccess({id: user._id, role:user.role, tokenVersion: user.tokenVersion});
         const refresh = signRefresh({id: user._id, tokenVersion: user.tokenVersion});
         setRefreshCookie(res, refresh)
-        res.status(201).json({success})
+
+        return res.status(201).json({access})
     } catch (error) {
         console.error(error);
         return res.status(500).json({message: "server error"})
