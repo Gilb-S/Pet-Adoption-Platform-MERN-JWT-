@@ -4,7 +4,8 @@ import helmet from 'helmet'
 import cors from 'cors'
 import rateLimit from 'express-rate-limit'
 import morgan from 'morgan'
-
+import authRoutes from '../routes/auth.Route.js'
+import {notFound,  errorHandler } from '../middleware/error.js'
 const app = express();
 app.use(helmet())
 // middlewares
@@ -12,6 +13,7 @@ app.use(cors({
     origin: process.env.CLIENT_URL, 
     credentials: true
 }));
+app.use(express.json())
 app.use(morgan("dev"))
 app.use(cookieParser())
 app.use(rateLimit({
@@ -19,4 +21,11 @@ app.use(rateLimit({
     max: 100
 }))
 // routes
+app.use("/api/auth", authRoutes)
+
+
+
+// not found routes
+app.use(notFound)
+app.use(errorHandler)
 export default app
