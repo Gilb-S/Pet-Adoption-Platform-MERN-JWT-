@@ -5,6 +5,7 @@ import cors from 'cors'
 import rateLimit from 'express-rate-limit'
 import morgan from 'morgan'
 import authRoutes from '../routes/auth.Route.js'
+import petRoutes from '../routes/pet.Route.js'
 import {notFound,  errorHandler } from '../middleware/error.js'
 const app = express();
 app.use(helmet())
@@ -22,8 +23,9 @@ app.use(rateLimit({
 }))
 // routes
 app.use("/api/auth", authRoutes)
-
-
+app.use('/api/pets', petRoutes)
+app.use('/api/request', (req, res) => {})
+app.use('/api/users', (re, res) =>{})
 
 // not found routes
 app.use(notFound)
