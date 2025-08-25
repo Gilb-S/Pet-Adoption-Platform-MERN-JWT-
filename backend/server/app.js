@@ -1,4 +1,4 @@
-import express, { request } from 'express'
+import express from 'express'
 import cookieParser from 'cookie-parser'
 import helmet from 'helmet'
 import cors from 'cors'
@@ -7,6 +7,7 @@ import morgan from 'morgan'
 import authRoutes from '../routes/auth.Route.js'
 import petRoutes from '../routes/pet.Route.js'
 import requestRoutes from '../routes/request.routes.js'
+import userRoutes from '../routes/user.routes.js'
 import {notFound,  errorHandler } from '../middleware/error.js'
 const app = express();
 app.use(helmet())
@@ -26,7 +27,7 @@ app.use(rateLimit({
 app.use("/api/auth", authRoutes)
 app.use('/api/pets', petRoutes)
 app.use('/api/request', requestRoutes)
-app.use('/api/users', (re, res) =>{})
+app.use('/api/users', userRoutes)
 
 
 // not found routes
